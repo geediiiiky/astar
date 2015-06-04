@@ -17,12 +17,12 @@ using namespace std;
 int main(int argc, const char * argv[])
 {
     AStar astar;
-    int rows = 20, columns = 30;
+    int rows = 40, columns = 50;
     Tiles env(rows, columns);
     random_device generator;
     uniform_int_distribution<int> distribution(1,4);
-    vector<int> impassableNodes;
     
+    vector<int> impassableNodes;
     for (int i = 0; i < columns * rows; i++)
     {
         int dice_roll = distribution(generator);
@@ -31,7 +31,7 @@ int main(int argc, const char * argv[])
             impassableNodes.push_back(i);
         }
     }
-
+    
     cout << "blocks(" << impassableNodes.size() << "): ";
     for (auto i : impassableNodes)
     {
@@ -57,7 +57,7 @@ int main(int argc, const char * argv[])
             break;
         }
     }
-    cout << "start = " << start << " end  = " << end << endl;
+    cout << "start = " << start << ", end  = " << end << ";" << endl;
 
     env.DrawMap(start, end);
     

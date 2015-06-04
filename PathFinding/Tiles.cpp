@@ -87,6 +87,35 @@ void Tiles::DrawMap(int start, int end) const
     }
 }
 
+char Tiles::GetPathSign(int nodeID, int previousNodeID) const
+{
+    int x, y;
+    SplitIDIntoCoord(nodeID, x, y);
+    int previousX, previousY;
+    SplitIDIntoCoord(previousNodeID, previousX, previousY);
+    
+    int diffX = previousX - x;
+    int diffY = previousY - y;
+    if (diffX == 0)
+    {
+        return '|';
+    }
+    else if (diffY == 0)
+    {
+        return '-';
+    }
+    else if (diffX * diffY > 0)
+    {
+        return '\\';
+    }
+    else
+    {
+        return '/';
+    }
+    
+    return '?';
+}
+
 void Tiles::DrawSolution(const std::vector<int>& path) const
 {
     std::for_each(path.begin(), path.end(), [](int x){std::cout << x << " ";});
@@ -113,7 +142,7 @@ void Tiles::DrawSolution(const std::vector<int>& path) const
             }
             else
             {
-                std::cout << 'o';
+                std::cout << GetPathSign(nodeID, *(part - 1));
             }
         }
         else
@@ -126,3 +155,6 @@ void Tiles::DrawSolution(const std::vector<int>& path) const
         }
     }
 }
+
+
+

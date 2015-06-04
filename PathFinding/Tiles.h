@@ -34,6 +34,10 @@ public:
     // end
     
 private:
+    // just for test
+    char GetPathSign(int nodeID, int previousNodeID) const;
+    // end
+    
     bool IsTraverseable(int nodeID) const {return untraverseable.count(nodeID) == 0;}
     
     int MakeIDFromCoord(int x, int y) const { return x + y * columns;}
