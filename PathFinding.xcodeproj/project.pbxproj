@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		417CEC6C1B1E9D360064DF9C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 417CEC6B1B1E9D360064DF9C /* main.cpp */; };
 		417CEC741B1E9F430064DF9C /* AStar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 417CEC721B1E9F430064DF9C /* AStar.cpp */; };
+		417CEC771B1F13090064DF9C /* Environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 417CEC751B1F13090064DF9C /* Environment.cpp */; };
+		417CEC7A1B1F13440064DF9C /* Tiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 417CEC781B1F13440064DF9C /* Tiles.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +30,10 @@
 		417CEC6B1B1E9D360064DF9C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		417CEC721B1E9F430064DF9C /* AStar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AStar.cpp; sourceTree = "<group>"; };
 		417CEC731B1E9F430064DF9C /* AStar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AStar.h; sourceTree = "<group>"; };
+		417CEC751B1F13090064DF9C /* Environment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Environment.cpp; sourceTree = "<group>"; };
+		417CEC761B1F13090064DF9C /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Environment.h; sourceTree = "<group>"; };
+		417CEC781B1F13440064DF9C /* Tiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tiles.cpp; sourceTree = "<group>"; };
+		417CEC791B1F13440064DF9C /* Tiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tiles.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,10 @@
 				417CEC6B1B1E9D360064DF9C /* main.cpp */,
 				417CEC721B1E9F430064DF9C /* AStar.cpp */,
 				417CEC731B1E9F430064DF9C /* AStar.h */,
+				417CEC751B1F13090064DF9C /* Environment.cpp */,
+				417CEC761B1F13090064DF9C /* Environment.h */,
+				417CEC781B1F13440064DF9C /* Tiles.cpp */,
+				417CEC791B1F13440064DF9C /* Tiles.h */,
 			);
 			path = PathFinding;
 			sourceTree = "<group>";
@@ -123,8 +133,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				417CEC771B1F13090064DF9C /* Environment.cpp in Sources */,
 				417CEC6C1B1E9D360064DF9C /* main.cpp in Sources */,
 				417CEC741B1E9F430064DF9C /* AStar.cpp in Sources */,
+				417CEC7A1B1F13440064DF9C /* Tiles.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +253,7 @@
 				417CEC711B1E9D360064DF9C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

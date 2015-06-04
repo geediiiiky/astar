@@ -11,7 +11,6 @@
 #include <set>
 #include <unordered_map>
 #include <vector>
-#include <unordered_set>
 
 class Environment;
 
@@ -21,6 +20,8 @@ class AStar
 private:
     struct AStarNode
     {
+        static const int NODE_NONE;
+        
         int ID;
         int parentID;
         int g;
@@ -41,6 +42,10 @@ private:
             }
             
             return ID < other.ID;
+        }
+        
+        AStarNode(int ID = NODE_NONE, int parentID = NODE_NONE, int g = 0, int h = 0) : ID{ID}, parentID{parentID}, g{g}, h{h}, f{g+h}
+        {
         }
     };
     
@@ -73,28 +78,3 @@ public:
 };
 
 
-class Environment
-{
-private:
-    int rows;
-    int columns;
-    std::unordered_set<int> untraverseable;
-public:
-    Environment(int r, int c) : rows(r), columns(c){}
-
-    // actually needed
-    struct Neighbor
-    {
-        int ID;
-        int cost;
-    };
-    std::vector<Neighbor> GetNeighbors(int nodeID) const;
-    int GetHeuristicValue(int from, int to) const;
-    bool IsTraverseable(int nodeID) const {return untraverseable.count(nodeID) == 0;}
-    // end
-    
-    void SetUntraverseable(int nodeID) {untraverseable.insert(nodeID);}
-    
-    void DrawMap() const;
-    void DrawSolution(const std::vector<int>& path) const;
-};

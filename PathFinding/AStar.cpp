@@ -7,9 +7,10 @@
 //
 
 #include "AStar.h"
+#include "Environment.h"
 #include <iostream>
 
-static const int NODE_NONE = -1;
+const int AStar::AStarNode::NODE_NONE = -1;
 
 //=========== open list ==========
 void AStar::OpenList::Clear()
@@ -70,13 +71,13 @@ bool AStar::CloseList::Contains(int nodeID)
 
 bool AStar::findPath(const Environment &env, int start, int goal)
 {
-    result.ID = NODE_NONE;
-    result.parentID = NODE_NONE;
+    result.ID = AStarNode::NODE_NONE;
+    result.parentID = AStarNode::NODE_NONE;
     openList.Clear();
     closeList.Clear();
     
     int startH = env.GetHeuristicValue(start, goal);
-    AStarNode startNode{start, NODE_NONE, 0, startH, startH};
+    AStarNode startNode(start, AStarNode::NODE_NONE, 0, startH);
     openList.Insert(startNode);
     
     AStarNode currentNode;
@@ -99,7 +100,7 @@ bool AStar::findPath(const Environment &env, int start, int goal)
             
             int newG = currentNode.g + neighbor.cost;
             int newH = env.GetHeuristicValue(neighbor.ID, goal);
-            AStarNode newNode{neighbor.ID, currentNode.ID, newG, newH, newG + newH};
+            AStarNode newNode(neighbor.ID, currentNode.ID, newG, newH);
             
             openList.Insert(newNode);
             
@@ -118,7 +119,7 @@ std::vector<int> AStar::getResultPath() const
 {
     std::vector<int> resultPath;
     AStarNode node = result;
-    while (node.parentID != NODE_NONE)
+    while (node.parentID != AStarNode::NODE_NONE)
     {
         resultPath.push_back(node.ID);
         node = closeList.nodes.at(node.parentID);
@@ -127,94 +128,4 @@ std::vector<int> AStar::getResultPath() const
     // the start node
     resultPath.push_back(node.ID);
     return std::move(resultPath);
-}
-
-
-static const int cost[] = {100, 141};
-std::vector<Environment::Neighbor> Environment::GetNeighbors(int nodeID) const
-{
-    std::vector<Environment::Neighbor> neighbors;
-    int x = nodeID % columns;
-    int y = nodeID / columns;
-    static const int x_inc[] = {-1, 0, 1, -1, 1, -1, 0, 1};
-    static const int y_inc[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-    for (int i = 0; i < 8; ++i)
-    {
-        int neighborX = x + x_inc[i];
-        int neighborY = y + y_inc[i];
-        
-        if (neighborX >=0 && neighborX < columns && neighborY >=0 && neighborY < rows && IsTraverseable(neighborX + neighborY * columns))
-        {
-            neighbors.push_back(Environment::Neighbor{neighborX + neighborY * columns, cost[abs(x_inc[i]) + abs(y_inc[i]) - 1]});
-        }
-    }
-    
-    return std::move(neighbors);
-}
-
-int Environment::GetHeuristicValue(int from, int to) const
-{
-    int fromX = from % columns;
-    int fromY = from / columns;
-    
-    int toX = to % columns;
-    int toY = to / columns;
-    
-    int diff1 = abs(fromX - toX);
-    int diff2 = abs(fromY - toY);
-
-    if (diff1 > diff2)
-    {
-        std::swap(diff1, diff2);
-    }
-    
-    return diff1 * cost[1] + (diff2 - diff1) * cost[0];
-}
-
-void Environment::DrawMap() const
-{
-    for (int nodeID = 0; nodeID < columns * rows; ++nodeID)
-    {
-        bool isPassable = IsTraverseable(nodeID);
-        std::cout << (isPassable ? 'O' : 'X');
-        if ((nodeID + 1) % columns == 0)
-        {
-            std::cout << std::endl;
-        }
-    }
-}
-
-void Environment::DrawSolution(const std::vector<int>& path) const
-{
-    std::for_each(path.begin(), path.end(), [](int x){std::cout << x << " ";});
-    std::cout << "\n\n\n";
-    
-    for (int nodeID = 0; nodeID < columns * rows; ++nodeID)
-    {
-        auto part = std::find(path.begin(), path.end(), nodeID);
-        if (part != path.end())
-        {
-            if (part == path.begin())
-            {
-                std::cout << 'G';
-            }
-            else if (part == path.end() - 1)
-            {
-                std::cout << 'S';
-            }
-            else
-            {
-                std::cout << '~';
-            }
-        }
-        else
-        {
-            bool isPassable = IsTraverseable(nodeID);
-            std::cout << (isPassable ? 'O' : 'X');
-        }
-        if ((nodeID+1) % columns == 0)
-        {
-            std::cout << std::endl;
-        }
-    }
 }
