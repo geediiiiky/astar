@@ -19,4 +19,5 @@ public:
     };
     virtual std::vector<Neighbor> GetNeighbors(int nodeID) const = 0;
     virtual int GetHeuristicValue(int from, int to) const = 0;
+    virtual std::vector<int> GetSmoothedPath(std::vector<int> paths) const = 0;
 };

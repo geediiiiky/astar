@@ -28,6 +28,8 @@ public:
     
     void SetUntraverseable(int nodeID) {untraverseable.insert(nodeID);}
     
+    virtual std::vector<int> GetSmoothedPath(std::vector<int> paths) const;
+    
     // just for test
     void DrawMap(int start, int end) const;
     void DrawSolution(const std::vector<int>& path) const;
@@ -39,6 +41,7 @@ private:
     // end
     
     bool IsTraverseable(int nodeID) const {return untraverseable.count(nodeID) == 0;}
+    bool IsThrough(int start, int end) const;
     
     int MakeIDFromCoord(int x, int y) const { return x + y * columns;}
     void SplitIDIntoCoord(int nodeID, int&x, int& y) const { x = nodeID % columns; y = nodeID / columns; }

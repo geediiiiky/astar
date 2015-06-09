@@ -17,10 +17,10 @@ using namespace std;
 int main(int argc, const char * argv[])
 {
     AStar astar;
-    int rows = 40, columns = 50;
+    int rows = 20, columns = 20;
     Tiles env(rows, columns);
     random_device generator;
-    uniform_int_distribution<int> distribution(1,4);
+    uniform_int_distribution<int> distribution(1,20);
     
     vector<int> impassableNodes;
     for (int i = 0; i < columns * rows; i++)
@@ -40,6 +40,7 @@ int main(int argc, const char * argv[])
     }
     cout << endl;
 
+    
     
     std::uniform_int_distribution<int> startEndDistribution(0,rows * columns-1);
     int start, end;
@@ -65,6 +66,14 @@ int main(int argc, const char * argv[])
     
     astar.findPath(env, start, end);
 //    astar.findPath(env, 11, 18);
-    env.DrawSolution(astar.getResultPath());
+    auto p = env.GetSmoothedPath(astar.getResultPath());
+    
+    for (auto n : p)
+    {
+        cout << n << ", ";
+    }
+    cout << endl;
+    
+    env.DrawSolution(p);
     return 0;
 }
